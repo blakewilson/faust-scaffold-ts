@@ -38,9 +38,17 @@ export default function Page() {
 }
 
 Page.query = gql`
-  ${Header.fragments.entry}
-  query GetHomePage {
-    ...HeaderFragment
+  ${Header.fragments.generalSettingsFragment}
+  ${Header.fragments.menuItemFragment}
+  query GetExamplePage {
+    generalSettings {
+      ...HeaderGeneralSettingsFragment
+    }
+    primaryMenuItems: menuItems(where: { location: PRIMARY }) {
+      nodes {
+        ...PrimaryMenuItemFragment
+      }
+    }
   }
 `;
 

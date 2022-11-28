@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from "../__generated__";
 import Link from "next/link";
 import Head from "next/head";
 import Header from "../components/header";
@@ -48,8 +48,7 @@ Component.variables = (seedQuery, ctx) => {
   };
 };
 
-Component.query = gql`
-  ${Header.fragments.entry}
+Component.query = gql(`
   query GetArchive($uri: String!) {
     nodeByUri(uri: $uri) {
       archiveType: __typename
@@ -74,6 +73,24 @@ Component.query = gql`
         }
       }
     }
-    ...HeaderFragment
+    generalSettings {
+      title
+      description
+    }
+    primaryMenuItems: menuItems(where: { location: PRIMARY }) {
+      nodes {
+        id
+        uri
+        path
+        label
+        parentId
+        cssClasses
+        menu {
+          node {
+            name
+          }
+        }
+      }
+    }
   }
-`;
+`);

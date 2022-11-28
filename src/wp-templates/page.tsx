@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from "../__generated__";
 import Head from "next/head";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
@@ -44,13 +44,30 @@ Component.variables = ({ databaseId }, ctx) => {
   };
 };
 
-Component.query = gql`
-  ${Header.fragments.entry}
+Component.query = gql(`
   query GetPage($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
     }
-    ...HeaderFragment
+    generalSettings {
+      title
+      description
+    }
+    primaryMenuItems: menuItems(where: { location: PRIMARY }) {
+      nodes {
+        id
+        uri
+        path
+        label
+        parentId
+        cssClasses
+        menu {
+          node {
+            name
+          }
+        }
+      }
+    }
   }
-`;
+`);
