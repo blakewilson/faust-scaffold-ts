@@ -3,8 +3,14 @@ import Head from "next/head";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import Header from "../components/header";
+import { GetPageQuery } from "../__generated__/graphql";
 
-export default function Component(props) {
+interface Props {
+  loading: boolean;
+  data: GetPageQuery;
+}
+
+export default function Component(props: Props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;

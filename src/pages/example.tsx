@@ -1,9 +1,11 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "../__generated__";
+import { useQuery } from "@apollo/client";
 import Head from "next/head";
 import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import { getNextStaticProps } from "@faustwp/core";
+import { GetExamplePageQuery } from "../__generated__/graphql";
 
 /**
  * Next.js file based page example with Faust helpers.
@@ -37,20 +39,29 @@ export default function Page() {
   );
 }
 
-Page.query = gql`
-  ${Header.fragments.generalSettingsFragment}
-  ${Header.fragments.menuItemFragment}
+Page.query = gql(`
   query GetExamplePage {
     generalSettings {
-      ...HeaderGeneralSettingsFragment
+      title
+      description
     }
     primaryMenuItems: menuItems(where: { location: PRIMARY }) {
       nodes {
-        ...PrimaryMenuItemFragment
+        id
+        uri
+        path
+        label
+        parentId
+        cssClasses
+        menu {
+          node {
+            name
+          }
+        }
       }
     }
   }
-`;
+`);
 
 export function getStaticProps(ctx) {
   return getNextStaticProps(ctx, {

@@ -4,14 +4,19 @@ import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import { GetPostQuery } from "../__generated__/graphql";
-export default function Component(props) {
+
+interface Props {
+  loading: boolean;
+  data: GetPostQuery;
+}
+
+export default function Component(props: Props) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;
   }
 
-  const { post, generalSettings, primaryMenuItems } =
-    props.data as GetPostQuery;
+  const { post, generalSettings, primaryMenuItems } = props.data;
   const { title: siteTitle, description: siteDescription } = generalSettings;
   const { nodes: menuItems } = primaryMenuItems;
   const { title, content, date, author } = post;

@@ -5,8 +5,14 @@ import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import style from "../styles/front-page.module.css";
+import { GetHomePageQuery } from "../__generated__/graphql";
 
-export default function Component(props) {
+interface Props {
+  loading: boolean;
+  data: GetHomePageQuery;
+}
+
+export default function Component(props: Props) {
   const { title: siteTitle, description: siteDescription } =
     props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
