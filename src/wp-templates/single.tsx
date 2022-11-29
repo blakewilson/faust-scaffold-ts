@@ -4,13 +4,9 @@ import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import { GetPostQuery } from "../__generated__/graphql";
+import { FaustTemplateProps } from "../interfaces/FaustTemplateProps";
 
-interface Props {
-  loading: boolean;
-  data: GetPostQuery;
-}
-
-export default function Component(props: Props) {
+export default function Component(props: FaustTemplateProps<GetPostQuery>) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;

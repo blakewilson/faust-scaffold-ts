@@ -4,13 +4,9 @@ import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import { GetPageQuery } from "../__generated__/graphql";
+import { FaustTemplateProps } from "../interfaces/FaustTemplateProps";
 
-interface Props {
-  loading: boolean;
-  data: GetPageQuery;
-}
-
-export default function Component(props: Props) {
+export default function Component(props: FaustTemplateProps<GetPageQuery>) {
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;
